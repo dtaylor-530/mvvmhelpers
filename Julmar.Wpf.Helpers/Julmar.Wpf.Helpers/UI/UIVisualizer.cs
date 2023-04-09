@@ -1,6 +1,7 @@
-﻿using System;
+﻿extern alias Composition;
+using Composition::System.ComponentModel.Composition;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
 using JulMar.Core.Services;

@@ -1,6 +1,8 @@
-﻿using System;
+﻿extern alias Composition; 
+
+using System;
 using JulMar.Windows.Interfaces;
-using System.ComponentModel.Composition;
+using Composition::System.ComponentModel.Composition;
 
 namespace JulMar.Windows.UI
 {

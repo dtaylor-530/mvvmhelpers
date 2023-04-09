@@ -1,4 +1,5 @@
-using System.ComponentModel.Composition;
+extern alias Composition;
+using Composition::System.ComponentModel.Composition;
 using JulMar.Core.Services;
 using JulMar.Windows.Interfaces;
 

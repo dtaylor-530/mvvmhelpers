@@ -1,12 +1,14 @@
-﻿using System;
+﻿extern alias Composition;
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Linq;
 using JulMar.Core.Services;
 using JulMar.Windows.Interfaces;
 using System.Diagnostics;
 using System.Reflection;
 using System.Security;
+using Composition::System.ComponentModel.Composition;
 
 namespace JulMar.Windows.Mvvm
 {
@@ -35,7 +37,7 @@ namespace JulMar.Windows.Mvvm
         /// Located view models
         /// </summary>
         [ImportMany(ViewModelLocator.MefLocatorKey, AllowRecomposition = true)]
-        public IEnumerable<Lazy<object, IViewModelMetadata>> LocatedViewModels { get; set; }
+        public IEnumerable<System.Lazy<object, IViewModelMetadata>> LocatedViewModels { get; set; }
     }
 
     /// <summary>
