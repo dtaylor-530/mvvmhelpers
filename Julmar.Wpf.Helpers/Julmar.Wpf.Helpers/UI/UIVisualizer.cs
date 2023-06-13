@@ -70,7 +70,7 @@ namespace JulMar.Windows.UI
         /// MEF registered views
         /// </summary>
         [ImportMany(MefLocatorKey, AllowRecomposition = true)]
-        private IEnumerable<Lazy<object, IUIVisualizerMetadata>> _locatedVisuals = null;
+        private IEnumerable<Lazy<IUIVisualizerMetadata>> _locatedVisuals = null;
 
         /// <summary>
         /// Set to true once we have loaded any dynamic visuals.
@@ -336,11 +336,11 @@ namespace JulMar.Windows.UI
                 // If we have visuals, register them
                 foreach (var item in _locatedVisuals)
                 {
-                    Type type = FindType(item.Metadata.ExportTypeIdentity);
+                    Type type = FindType(item.Value.ExportTypeIdentity);
                     if (type != null)
                     {
                         // Go through any registered keys
-                        foreach (string key in item.Metadata.Key)
+                        foreach (string key in item.Value.Key)
                             Register(key, type);
                     }
                 }
