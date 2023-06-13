@@ -3,8 +3,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:julmar="http://www.julmar.com/wpfhelpers"
+    xmlns:local="clr-namespace:MTObservableTest.ViewModels"
     Title="Multi-threaded ObservableCollection test (MVVMHelpers)" Height="500" Width="500"
-    DataContext="{julmar:ViewModelCreator Key=Main}">
+  
+       >
+    <FrameworkElement.DataContext>
+        <local:MainViewModel/>
+    </FrameworkElement.DataContext>
     
     <Window.Resources>
         <CollectionViewSource x:Key="sortedTimeList" Source="{Binding Activity}">
