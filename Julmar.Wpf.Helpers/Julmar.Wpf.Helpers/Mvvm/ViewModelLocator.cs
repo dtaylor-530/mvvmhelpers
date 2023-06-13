@@ -37,7 +37,7 @@ namespace JulMar.Windows.Mvvm
         /// Located view models
         /// </summary>
         [ImportMany(ViewModelLocator.MefLocatorKey, AllowRecomposition = true)]
-        public IEnumerable<System.Lazy<object, IViewModelMetadata>> LocatedViewModels { get; set; }
+        public IEnumerable<System.Lazy<IViewModelMetadata>> LocatedViewModels { get; set; }
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ namespace JulMar.Windows.Mvvm
     [Export(typeof(IViewModelLocator))]
     sealed class ViewModelLocator : IViewModelLocator
     {
-        private IList<Lazy<object, IViewModelMetadata>> _locatedViewModels;
+        private IList<Lazy< IViewModelMetadata>> _locatedViewModels;
 
         /// <summary>
         /// Key used to bind exports together
@@ -113,49 +113,49 @@ namespace JulMar.Windows.Mvvm
         {
             returnValue = null;
 
-            // Populate our list the first call
-            if (_locatedViewModels == null)
-            {
-                _locatedViewModels = GatherViewModelData().ToList();
-            }
+            //// Populate our list the first call
+            //if (_locatedViewModels == null)
+            //{
+            //    _locatedViewModels = GatherViewModelData().ToList();
+            //}
 
-            // First look for the key in our metadata collection
-            var vmType = (from locatedVm in _locatedViewModels
-                          where locatedVm.Metadata.Key.Any(uiKey => uiKey == key)
-                          select locatedVm).FirstOrDefault();
+            //// First look for the key in our metadata collection
+            //var vmType = (from locatedVm in _locatedViewModels
+            //              where locatedVm.Metadata.Key.Any(uiKey => uiKey == key)
+            //              select locatedVm).FirstOrDefault();
 
-            if (vmType != null)
-            {
-                // First time?  Just create it and return
-                if (!IsValueCreated(vmType))
-                {
-                    returnValue = vmType.Value;
-                }
-                else
-                {
-                    // Object should already be there.
-                    Type type = vmType.Value.GetType();
+            //if (vmType != null)
+            //{
+            //    // First time?  Just create it and return
+            //    if (!IsValueCreated(vmType))
+            //    {
+            //        returnValue = vmType.Value;
+            //    }
+            //    else
+            //    {
+            //        // Object should already be there.
+            //        Type type = vmType.Value.GetType();
 
-                    // Look for the shared attribute, MEF parts are shared by default
-                    var pca = type.GetCustomAttributes(typeof (PartCreationPolicyAttribute), true).Cast<PartCreationPolicyAttribute>().ToArray();
-                    if (pca.Any(cp => cp.CreationPolicy == CreationPolicy.NonShared))
-                    {
-                        // Attempt to create a brand new one.
-                        // No easy way to do this because Lazy<T> always returns same instance above
-                        // so, non-shared instances are not possible .. and since we are exporting as typeof(object)
-                        // to gather the VMs (otherwise the above ImportMany doesn't work) we can't differentiate based
-                        // on type and use MEF to recreate one.
-                        var locatedVms = GatherViewModelData();
-                        var entry = locatedVms.First(vmd => vmd.Metadata.Key.Any(uiKey => uiKey == key));
-                        Debug.Assert(entry != null);
-                        Debug.Assert(IsValueCreated(entry) == false);
+            //        // Look for the shared attribute, MEF parts are shared by default
+            //        var pca = type.GetCustomAttributes(typeof (PartCreationPolicyAttribute), true).Cast<PartCreationPolicyAttribute>().ToArray();
+            //        if (pca.Any(cp => cp.CreationPolicy == CreationPolicy.NonShared))
+            //        {
+            //            // Attempt to create a brand new one.
+            //            // No easy way to do this because Lazy<T> always returns same instance above
+            //            // so, non-shared instances are not possible .. and since we are exporting as typeof(object)
+            //            // to gather the VMs (otherwise the above ImportMany doesn't work) we can't differentiate based
+            //            // on type and use MEF to recreate one.
+            //            var locatedVms = GatherViewModelData();
+            //            var entry = locatedVms.First(vmd => vmd.Metadata.Key.Any(uiKey => uiKey == key));
+            //            Debug.Assert(entry != null);
+            //            Debug.Assert(IsValueCreated(entry) == false);
                         
-                        returnValue = entry.Value;
-                    }
-                    else
-                        returnValue = vmType.Value;
-                }
-            }
+            //            returnValue = entry.Value;
+            //        }
+            //        else
+            //            returnValue = vmType.Value;
+            //    }
+            //}
 
             return returnValue != null;
         }
@@ -165,7 +165,7 @@ namespace JulMar.Windows.Mvvm
         /// on the ExportViewModel attribute.
         /// </summary>
         /// <returns></returns>
-        private static IEnumerable<Lazy<object, IViewModelMetadata>> GatherViewModelData()
+        private static IEnumerable<Lazy<IViewModelMetadata>> GatherViewModelData()
         {
             var data = new ViewModelData();
             DynamicComposer.Instance.Compose(data);
