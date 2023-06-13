@@ -137,13 +137,13 @@ namespace JulMar.Windows.Interactivity
                             Type type = collection.GetType();
                             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ObservableCollection<>))
                             {
-#if !WPF_TOOLKIT
-                                dynamic dCollection = collection;
-                                dCollection.Move(oldIndex, newIndex);
-#else
+//#if !WPF_TOOLKIT
+//                                dynamic dCollection = collection;
+//                                dCollection.Move(oldIndex, newIndex);
+//#else
                                 var methodInfo = type.GetMethod("Move");
                                 methodInfo.Invoke(collection, new object[] {oldIndex, newIndex});
-#endif
+//#endif
                             }
                             else
                             {
