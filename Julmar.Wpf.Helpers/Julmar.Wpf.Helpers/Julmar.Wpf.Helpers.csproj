@@ -1,11 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFrameworks>net7.0-windows;net45</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<Deterministic>false</Deterministic>
+		<LangVersion>Latest</LangVersion>
 		<UseWindowsForms>true</UseWindowsForms>
+		<Version>1.0.1</Version>
 		<Title>JulMar WPF Helpers</Title>
 		<Authors>Mark Smith</Authors>
 		<Company>JulMar Entertainment Technology, Inc.</Company>
@@ -13,6 +14,7 @@
 		<Copyright>(C) 2008-2011 JulMar Entertainment Technology, Inc.</Copyright>
 		<PackageProjectUrl>https://github.com/markjulmar/mvvmhelpers</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/markjulmar/mvvmhelpers</RepositoryUrl>
+		<AssemblyVersion></AssemblyVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
@@ -22,7 +24,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="System.ComponentModel.Composition">
-			<HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.ComponentModel.Composition.dll</HintPath>
+			<HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.ComponentModel.Composition.dll</HintPath>
 			<Aliases>Composition</Aliases>
 		</Reference>
 	</ItemGroup>

@@ -1,21 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
+    <TargetFrameworks>net45;net7.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <Title>Julmar Core</Title>
+	  <Version>1.0.1</Version>
+	<LangVersion>Latest</LangVersion>
     <Description>Core types and services</Description>
     <Copyright>Copyright © JulMar Entertainment Technology, Inc. 2010-2011</Copyright>
     <Company>Julmar Technology, Inc.</Company>
     <Authors>Mark Smith</Authors>
+	<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
     <PackageProjectUrl>https://github.com/markjulmar/mvvmhelpers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/markjulmar/mvvmhelpers</RepositoryUrl>
   </PropertyGroup>
 
+	<!-- Only enable nullable feature for the supported frameworks -->
+	<PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard4.5' ">
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" $(Nullable) != 'enable' ">
+		<NoWarn>$(NoWarn);CS8632</NoWarn>
+	</PropertyGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.Composition">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.ComponentModel.Composition.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.ComponentModel.Composition.dll</HintPath>
     </Reference>
   </ItemGroup>
 

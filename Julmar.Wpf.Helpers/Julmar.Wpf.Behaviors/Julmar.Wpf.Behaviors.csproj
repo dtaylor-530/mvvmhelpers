@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
+    <TargetFrameworks>net7.0-windows;net45</TargetFrameworks>
+    <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <Title>Julmar Wpf Behaviors</Title>
     <Authors>Mark Smith</Authors>
+	 <Version>1.0.1</Version>
     <Company>JulMar Technology, Inc.</Company>
     <Product>Julmar.Wpf.Behaviors</Product>
     <Description>Expression Blend Behaviors</Description>
@@ -13,7 +14,15 @@
     <PackageProjectUrl>https://github.com/markjulmar/mvvmhelpers</PackageProjectUrl>
     <RepositoryUrl>https://github.com/markjulmar/mvvmhelpers</RepositoryUrl>
   </PropertyGroup>
+	<PropertyGroup Condition=" '$(TargetFramework)' != 'net45' ">
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
+	<PropertyGroup Condition=" $(Nullable) != 'enable' ">
+		<NoWarn>$(NoWarn);CS8632</NoWarn>
+	</PropertyGroup>
+	
+	
   <ItemGroup>
     <ProjectReference Include="..\Julmar.Wpf.Helpers\Julmar.Wpf.Helpers.csproj" />
   </ItemGroup>
